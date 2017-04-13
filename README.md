@@ -14,7 +14,7 @@ The input backlog file should be CSV format with 6 columns according to the orde
 
 Notice that the first row would be ignored as header.
 
-### Usage
+## Usage
 
 - `normal-painter.py`: 1/2 A4
 - `small-painter.py`: 1/4 A4, less fields
