@@ -56,7 +56,7 @@ class SmallCardPainter(CardPainter):
         self.canvas.setFillGray(self.white)
         text = [Paragraph(story.demo, style)]
         text_inframe = KeepInFrame(sx-2, 80, text)
-        frame = Frame(x0+1, y0+1, sx-2, 80)
+        frame = Frame(x0+1, y0+101, sx-2, 80)
         frame.addFromList([text_inframe], self.canvas)
 
         # Notes
@@ -65,7 +65,7 @@ class SmallCardPainter(CardPainter):
         self.canvas.setFillGray(self.white)
         text = [Paragraph(story.notes, style)]
         text_inframe = KeepInFrame(sx-2, 80, text)
-        frame = Frame(x0+1, y0+101, sx-2, 80)
+        frame = Frame(x0+1, y0+1, sx-2, 80)
         frame.addFromList([text_inframe], self.canvas)
 
         # ID
@@ -91,7 +91,7 @@ class SmallCardPainter(CardPainter):
         # Estimate
         self.canvas.setFillGray(self.gray)
         self.setFontSize(16)
-        self.canvas.drawString(x0+346, y0+256, 'Est: %s' % story.est)
+        self.canvas.drawString(x0+344, y0+256, 'Est: %s' % story.est)
 
 
 def main():
