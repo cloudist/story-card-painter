@@ -1,57 +1,11 @@
 # -*- coding: utf-8 -*-
-import csv
+from core import CardPainter
 
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph, Frame, KeepInFrame
 
 
-class CardPainter(object):
-
-    class Story(object):
-        def __init__(self, sid, name, imp, est, demo, notes):
-            self.sid = sid
-            self.name = name
-            self.imp = imp
-            self.est = est
-            self.demo = demo
-            self.notes = notes
-
-    def __init__(self, input_path, output_path, fontname, fontpath):
-        self.canvas = canvas.Canvas(output_path)
-        self.padding = 20
-        self.page_width, self.page_height = A4
-        self.page = 0
-        self.story_count = 0
-
-        self.black = 0.3
-        self.gray = 0.5
-        self.lite_gray = 0.95
-        self.white = 1
-
-        if fontname and fontpath:
-            pdfmetrics.registerFont(TTFont(fontname, fontpath))
-            self.fontname = fontname
-        else:
-            self.fontname = 'Helvetica'
-
-        self.load_backlog(input_path)
-
-    def load_backlog(self, path):
-        self.backlog = []
-        with open(path, 'rb') as backlog_file:
-            reader = csv.reader(backlog_file)
-            first_line = True
-            for row in reader:
-                if first_line:
-                    first_line = False
-                    continue
-                story = self.Story(row[0], row[1], row[2], row[3], row[4], row[5])
-                self.backlog.append(story)
-        print 'backlog:', len(self.backlog)
+class NormalCardPainter(CardPainter):
 
     def paint(self):
         for story in self.backlog:
@@ -84,7 +38,7 @@ class CardPainter(object):
         self.canvas.rect(x0+420, y0+90, 100, 80, stroke=1, fill=1)
 
         # keys
-        self.__setFontSize(16)
+        self.setFontSize(16)
         self.canvas.setFillGray(self.black)
         self.canvas.drawString(x0+20, y1-30, 'Backlog item #%s' % story.sid)
         self.canvas.setFillGray(self.gray)
@@ -95,7 +49,7 @@ class CardPainter(object):
 
         # values
         self.canvas.setFillGray(self.black)
-        self.__setFontSize(36)
+        self.setFontSize(36)
         self.canvas.drawString(x0+440, y0+240, story.imp)
         self.canvas.drawString(x0+440, y0+120, story.est)
 
@@ -117,17 +71,14 @@ class CardPainter(object):
         frame = Frame(x0+20, y0+20, 360, 100)
         frame.addFromList([text_inframe], self.canvas)
 
-    def __setFontSize(self, size):
-        self.canvas.setFont(self.fontname, size)
-
 
 def main():
     input_path = 'input.csv'
-    output_path = 'output.pdf'
+    output_path = 'normal-cards.pdf'
     fontname = 'msyh'
-    fontpath = 'msyh.ttf'
+    fontpath = 'assets/msyh.ttf'
 
-    painter = CardPainter(input_path, output_path, fontname, fontpath)
+    painter = NormalCardPainter(input_path, output_path, fontname, fontpath)
     painter.paint()
 
 
