@@ -52,7 +52,7 @@ class SmallCardPainter(CardPainter):
 
         # How to demo
         self.canvas.setFillGray(self.gray)
-        self.canvas.rect(x0+1, y0+1, sx-2, 80, stroke=0, fill=1)
+        self.canvas.rect(x0+1, y0+101, sx-2, 80, stroke=0, fill=1)
         self.canvas.setFillGray(self.white)
         text = [Paragraph(story.demo, style)]
         text_inframe = KeepInFrame(sx-2, 80, text)
@@ -61,7 +61,7 @@ class SmallCardPainter(CardPainter):
 
         # Notes
         self.canvas.setFillGray(self.gray)
-        self.canvas.rect(x0+1, y0+101, sx-2, 80, stroke=0, fill=1)
+        self.canvas.rect(x0+1, y0+1, sx-2, 80, stroke=0, fill=1)
         self.canvas.setFillGray(self.white)
         text = [Paragraph(story.notes, style)]
         text_inframe = KeepInFrame(sx-2, 80, text)
